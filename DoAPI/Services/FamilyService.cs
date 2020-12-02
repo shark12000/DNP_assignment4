@@ -22,7 +22,6 @@ namespace DoAPI.Services
         {
             if (_myDbContext.Families.Equals(null))
             {
-                Console.WriteLine("Oh my god");
                 return new List<Family>();
             }
             return new List<Family>(_myDbContext.Families);

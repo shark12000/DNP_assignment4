@@ -38,23 +38,24 @@ Wight <InputNumber @bind-Value="myChild.Weight"/>
 <InputSelect @bind-Value="myChild.Hobbies">
     @foreach (Hobby item in _hobbies)
     {
-        <option value="@item">@item.HobbyType</option>
+        <option value="@item.HobbyType">@item.HobbyType</option>
     }
 </InputSelect>
 
 <br/><br/>
 Hobby: <InputText @bind-Value="myHobby.HobbyType"/>
+<p style="color: red">@error</p>
 
 <br/><br/>
-<button @onclick="AddHobby">AddInterest</button>
+<button @onclick="AddHobby">Add Interest</button>
+<button @onclick="DeleteHobbies">Clear List</button>
 
 <br/><br/>
 <ol>
     @foreach (Hobby interest in myHobbies)
     {
         <li>
-            @interest.ToString()
-            <a style=" cursor:pointer; color:blue; text-decoration:underline;" @onclick="@(e => DeleteInterest(interest))" >Delete</a>
+            @interest.HobbyType
         </li>
     }
 </ol>
@@ -79,14 +80,14 @@ Age: <InputNumber @bind-Value="myPet.Age"/>
     @foreach (Pet pet in myPets)
     {
         <li>
-            @pet.Name
-            <a style=" cursor:pointer; color:blue; text-decoration:underline;" @onclick="@(e => DeletePet(pet))" >Delete</a>
+            @pet.Name @pet.PetSpecie
         </li>
     }
 </ol>
 
 <br/><br/>
-<button @onclick="AddPet">AddPet</button>
+<button @onclick="AddPet">Add Pet</button>
+<button @onclick="DeletePets">Clear List</button>
 
 <br/><br/>
 <button @onclick="Save">Save</button>
@@ -104,7 +105,9 @@ Age: <InputNumber @bind-Value="myPet.Age"/>
     Child myChild = new Child();
     Hobby myHobby = new Hobby();
     Pet myPet = new Pet();
-    
+
+    private string error = "";
+
     IList<Hobby> _hobbies = new List<Hobby>();
     IList<Hobby> myHobbies = new List<Hobby>();
     IList<Pet> myPets = new List<Pet>(); 
@@ -118,6 +121,7 @@ Age: <InputNumber @bind-Value="myPet.Age"/>
         myPet.ChildId = Int32.Parse(childId);
         myPet.FamilyId = Int32.Parse(familyId);
         myHobby.ChildId = Int32.Parse(childId);
+        myHobby.HobbyType = "";
     }
 
     public async Task Save()
@@ -125,29 +129,35 @@ Age: <InputNumber @bind-Value="myPet.Age"/>
         await ChildService.Update(myChild);
         NavigationManager.NavigateTo($"/family/{familyId}/edit");
     }
-    
-    public async Task AddChildInterest(Hobby hobby)
-    {
-        await ChildService.CreateHobby(hobby);
-    }
 
-    public async Task DeleteInterest(Hobby hobby)
+    public async Task DeleteHobbies()
     {
-        await ChildService.RemoveHobby(hobby.HobbyId, myChild.ChildId);
+        await ChildService.RemoveHobbies(Int32.Parse(childId));
+        myHobbies.Clear();
     }
 
     public async Task AddHobby()
     {
-        await AddChildInterest(myHobby);
+        if (myHobby == null || myHobby.HobbyType == "")
+        {
+            error = "The field is empty";
+        }
+        else
+        {
+            await ChildService.CreateHobby(myHobby);
+            myHobbies.Add(myHobby);
+        }
     }
     
     public async Task AddPet()
     {
         await ChildService.CreatePet(myPet);
+        myPets.Add(myPet);
     }
 
-    public async Task DeletePet(Pet pet)
+    public async Task DeletePets()
     {
-        await ChildService.RemovePet(pet.PetId);
+        await ChildService.RemovePets(Int32.Parse(childId));
+        myPets.Clear();
     }
 }

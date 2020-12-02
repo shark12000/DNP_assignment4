@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "/oSTnHysqdwrIBJpBCkm85vUx8ZwehcgDnTKEma4yux1V49Qj4Pn4udbC1ukjN6hU1XnNnx/ub6lh6bC71svYw==",
+  "dgSpecHash": "PXFB4hTxQjRzQp4vwVbCVzz8Uouxlnp58Lt4YGtfSTbGd8HkM6VedAJUpfhlbXNFCL0+8SwFv4VT9yeuaQru0Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\themr\\RiderProjects\\DNP4.1\\dnp_assignment_4\\dnp_assignment_4.csproj",
+  "projectFilePath": "C:\\Users\\themr\\RiderProjects\\DNP_assignment4\\dnp_assignment_4\\dnp_assignment_4.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\themr\\.nuget\\packages\\microsoft.aspnetcore.blazor.httpclient\\3.0.0-preview8.19405.7\\microsoft.aspnetcore.blazor.httpclient.3.0.0-preview8.19405.7.nupkg.sha512",
     "C:\\Users\\themr\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",

@@ -97,9 +97,9 @@ namespace dnp_assignment_4.Data
             }
         }
 
-        public async Task<string> RemoveHobby(int hobbyId, int childId)
+        public async Task<string> RemoveHobbies(int childId)
         {
-            HttpResponseMessage response = await _httpClient.DeleteAsync("child/"+childId+"/hobby/"+hobbyId);
+            HttpResponseMessage response = await _httpClient.DeleteAsync("child/"+childId+"/hobby");
             return response.ToString();
         }
         
@@ -164,9 +164,9 @@ namespace dnp_assignment_4.Data
             return response.ToString();
         }
         
-        public async Task<string> RemovePet(int petId)
+        public async Task<string> RemovePets(int childId)
         {
-            HttpResponseMessage response = await _httpClient.DeleteAsync("pet/"+petId);
+            HttpResponseMessage response = await _httpClient.DeleteAsync("child/"+childId+"/pet");
             return response.ToString();
         }
 

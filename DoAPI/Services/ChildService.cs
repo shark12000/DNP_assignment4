@@ -109,6 +109,8 @@ namespace DoAPI.Services
             }
             else
             {
+                _myDbContext.Hobby.RemoveRange(child.Hobbies);
+                _myDbContext.Pets.RemoveRange(child.Pets);
                 _myDbContext.Children.Remove(child);
             }
 
@@ -182,6 +184,36 @@ namespace DoAPI.Services
                 Console.WriteLine(e);
                 throw;
             }
+        }
+
+        public async Task DeleteHobbies(int id)
+        {
+            IList<Hobby> hobbiesToRemove = new List<Hobby>(_myDbContext.Hobby.Where(f => f.ChildId == id));
+            if (hobbiesToRemove.Equals(null))
+            {
+                Console.WriteLine("null");   
+            }
+            else
+            {
+                _myDbContext.Hobby.RemoveRange(hobbiesToRemove);
+            }
+
+            await _myDbContext.SaveChangesAsync();
+        }
+        
+        public async Task DeletePets(int id)
+        {
+            Child child = _myDbContext.Children.FirstOrDefault(f => f.ChildId == id);
+            if (child == null)
+            {
+                Console.WriteLine("null");   
+            }
+            else
+            {
+                _myDbContext.Pets.RemoveRange(child.Pets);
+            }
+
+            await _myDbContext.SaveChangesAsync();
         }
     }
 }

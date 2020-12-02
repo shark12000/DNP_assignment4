@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "rwScu6nD0PMbePDRQOxvX3CcM5yJj6sWXhOqSN8USLsy+lOwA/eVa4f4VS4ES2qTcjit/m1ng97/+tjpyEOaHA==",
+  "dgSpecHash": "XA99cFR4HuZq08iTGM9dbYKNsNgccFO/734vM889ZLPuA7+ZYVYTK/LJ4ZeedP2uy4yNlcW8oDMRXoZ2AVyRbw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\themr\\RiderProjects\\DNP4.1\\DoAPI\\DoAPI.csproj",
+  "projectFilePath": "C:\\Users\\themr\\RiderProjects\\DNP_assignment4\\DoAPI\\DoAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\themr\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\themr\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

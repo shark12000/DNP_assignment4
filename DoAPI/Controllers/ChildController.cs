@@ -176,6 +176,39 @@ namespace DoAPI.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+        
+        [Route("/child/{childId}/pet")]
+        [HttpDelete]
+        public async Task<ActionResult<Child>> RemovePets(int childId)
+        {
+            try
+            {
+                await _childService.DeletePets(childId);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(500, e.Message);
+            }
+        }
+        
+        
+        [Route("/child/{childId}/hobby")]
+        [HttpDelete]
+        public async Task<ActionResult<Child>> DeleteHobbies(int childId)
+        {
+            try
+            {
+                await _childService.DeleteHobbies(childId);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(500, e.Message);
+            }
+        }
 
         [HttpGet]
         public async Task<ActionResult<IList<Child>>> GetChildrenByFamily(int familyId)

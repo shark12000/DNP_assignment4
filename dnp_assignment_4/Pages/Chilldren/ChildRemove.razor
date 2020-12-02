@@ -1,5 +1,6 @@
 ﻿@page "/family/{familyId}/children/{childId}/delete"
 @using dnp_assignment_4.Data
+@using dnp_assignment_4.Models
 @inject NavigationManager NavigationManager
 @inject IFamilyService FamilyServiceImpl
 @inject IChildService ChildService
@@ -16,6 +17,12 @@ Are you sure you want to delete the adult with id @childId from family @familyId
 
     [Parameter]
     public string childId { get; set; }
+    
+    Child _child = new Child();
+
+    protected override async Task OnInitializedAsync()
+    {
+    }
 
     public async Task DeleteChild()
     {

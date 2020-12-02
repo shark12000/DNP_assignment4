@@ -113,11 +113,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\themr\\RiderProjects\\DNP4.1\\dnp_assignment_4\\dnp_assignment_4.csproj",
+      "projectUniqueName": "C:\\Users\\themr\\RiderProjects\\DNP_assignment4\\dnp_assignment_4\\dnp_assignment_4.csproj",
       "projectName": "dnp_assignment_4",
-      "projectPath": "C:\\Users\\themr\\RiderProjects\\DNP4.1\\dnp_assignment_4\\dnp_assignment_4.csproj",
+      "projectPath": "C:\\Users\\themr\\RiderProjects\\DNP_assignment4\\dnp_assignment_4\\dnp_assignment_4.csproj",
       "packagesPath": "C:\\Users\\themr\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\themr\\RiderProjects\\DNP4.1\\dnp_assignment_4\\obj\\",
+      "outputPath": "C:\\Users\\themr\\RiderProjects\\DNP_assignment4\\dnp_assignment_4\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\themr\\AppData\\Roaming\\NuGet\\NuGet.Config",

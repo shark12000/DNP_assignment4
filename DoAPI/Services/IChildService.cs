@@ -14,6 +14,8 @@ namespace DoAPI.Services
         Task<Child> AddAsync(Child child);
         Task<Child> Update(Child child);
         Task DeleteAsync(int id);
+        Task DeleteHobbies(int id);
+        Task DeletePets(int id);
         Task<IList<Pet>> GetChildPets(int childId);
         Task<IList<Hobby>> GetChildHobbies(int childId);
         Task<Hobby> AddHobby(Hobby hobby);

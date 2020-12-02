@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\themr\\RiderProjects\\DNP4.1\\DoAPI\\DoAPI.csproj": {}
+    "C:\\Users\\themr\\RiderProjects\\DNP_assignment4\\DoAPI\\DoAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\themr\\RiderProjects\\DNP4.1\\DoAPI\\DoAPI.csproj": {
+    "C:\\Users\\themr\\RiderProjects\\DNP_assignment4\\DoAPI\\DoAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\themr\\RiderProjects\\DNP4.1\\DoAPI\\DoAPI.csproj",
+        "projectUniqueName": "C:\\Users\\themr\\RiderProjects\\DNP_assignment4\\DoAPI\\DoAPI.csproj",
         "projectName": "DoAPI",
-        "projectPath": "C:\\Users\\themr\\RiderProjects\\DNP4.1\\DoAPI\\DoAPI.csproj",
+        "projectPath": "C:\\Users\\themr\\RiderProjects\\DNP_assignment4\\DoAPI\\DoAPI.csproj",
         "packagesPath": "C:\\Users\\themr\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\themr\\RiderProjects\\DNP4.1\\DoAPI\\obj\\",
+        "outputPath": "C:\\Users\\themr\\RiderProjects\\DNP_assignment4\\DoAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\themr\\AppData\\Roaming\\NuGet\\NuGet.Config",
