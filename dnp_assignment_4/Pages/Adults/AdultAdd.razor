@@ -1,0 +1,62 @@
+﻿@page "/family/{familyId}/adults/add"
+@using dnp_assignment_4.Data
+@using dnp_assignment_4.Models
+@inject NavigationManager NavigationManager
+@inject IAdultService AdultService;
+@inject IFamilyService FamilyService;
+<h3>AdultAdd</h3>
+
+<EditForm Model="_adult">
+First name <InputText  @bind-Value="_adult.FirstName"/>
+<br/><br/>
+Last name <InputText  @bind-Value="_adult.LastName"/>
+<br/><br/>
+Hair color <InputText  @bind-Value="_adult.HairColor"/>
+<br/><br/>
+Eye color<InputText  @bind-Value="_adult.EyeColor"/>
+<br/><br/>
+
+Gender <InputSelect @bind-Value="_adult.Sex">
+    <option value="male">male</option>
+    <option value="female">female</option>
+</InputSelect>
+<br/><br/>
+Age <InputNumber @bind-Value="_adult.Age"/>
+<br/><br/>
+Height <InputNumber @bind-Value="_adult.Height"/>
+<br/><br/>
+Wight <InputNumber @bind-Value="_adult.Weight"/>
+<br/><br/>
+<p>@_adult.JobTitle</p>
+Job <InputSelect @bind-Value="_adult.JobTitle">
+    @foreach (string item in _adult.JobTitles)
+    {
+        <option value="@item">@item</option>
+    }
+</InputSelect>
+<br/><br/>
+<button @onclick="AddAdult">Add</button>
+
+</EditForm>
+
+
+
+@code {
+    [Parameter]
+    public string familyId { get; set; }
+
+    Adult _adult = new Adult();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _adult.FamilyId = Int32.Parse(familyId);
+    }
+
+    public async Task AddAdult()
+    {
+        await AdultService.CreateAdult(_adult);
+        Console.WriteLine(_adult.AdultId + " " + _adult.FamilyId + " " + _adult.JobTitle + " " + _adult.Age + " " + _adult.Height + " " + _adult.Sex + " " + _adult.Weight + " " + _adult.EyeColor + " " + _adult.FirstName + " " + _adult.HairColor + " " + _adult.LastName);
+        NavigationManager.NavigateTo($"family/{familyId}/edit");
+    }
+    
+}

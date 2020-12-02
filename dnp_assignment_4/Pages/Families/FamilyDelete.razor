@@ -1,0 +1,27 @@
+@page "/family/{familyId}/delete"
+@using dnp_assignment_4.Data
+@inject NavigationManager NavigationManager
+@inject IFamilyService FamilyServiceImpl
+
+<h3>Family Delete</h3>
+
+Are you sure you want to delete the family with id @familyId?
+
+<button @onclick='DeleteFamily'>Yes</button>
+<button @onclick='Cancel'>No</button>
+
+@code {
+    [Parameter]
+    public string familyId { get; set; }
+
+    public async Task DeleteFamily()
+    {
+        await FamilyServiceImpl.RemoveFamily(Int32.Parse(familyId));
+        NavigationManager.NavigateTo("FamilyView");
+    }
+
+    public async Task Cancel()
+    {
+        NavigationManager.NavigateTo("FamilyView");
+    }
+}

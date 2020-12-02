@@ -1,0 +1,42 @@
+﻿@page "/"
+@inject NavigationManager NavigationManager;
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<AuthorizeView>
+    <Authorized>
+        <p>Hi, @context.User.FindFirst(claim => claim.Type.Equals("Id")).Value!</p>
+        
+        <button @onclick='NavigateTo'>List of your families</button>
+    </Authorized>
+    <NotAuthorized>
+        <p>You are not signed!</p>
+    </NotAuthorized>
+</AuthorizeView>
+
+<SurveyPrompt Title="How is Blazor working for you?" />lazor working for you?"/>
+
+@code {
+    
+    private string userId { get; set; }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        if (user.Identity.IsAuthenticated)
+        {
+            userId = user.FindFirst(claim => claim.Type.Equals("Id")).Value;
+        }
+    }
+
+    private void NavigateTo()
+    {
+        NavigationManager.NavigateTo($"/FamilyView");
+    }
+    
+
+}

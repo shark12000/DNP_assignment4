@@ -1,0 +1,45 @@
+@page "/family/{familyId}/pets/add"
+@using dnp_assignment_4.Data
+@using dnp_assignment_4.Models
+
+@inject NavigationManager NavigationManager
+@inject IFamilyService FamilyServiceImpl
+@inject IPetService PetService
+
+<h3>Family Pets Add</h3>
+
+<EditForm Model="myPet">
+    Species:
+    <InputSelect @bind-Value="myPet.PetSpecie">
+        @foreach (string item in myPet.SpeciesOfPet)
+        {
+            <option value="@item">@item</option>
+        }
+    </InputSelect>
+    <br/><br/>
+    Name: <InputText @bind-Value="myPet.Name"/>
+    <br/><br/>
+    Age: <InputNumber @bind-Value="myPet.Age"></InputNumber>
+    <br/><br/>
+</EditForm>
+<br/><br/>
+<button @onclick="AddFamilyPet">Add</button>
+
+@code {
+
+    [Parameter]
+    public string familyId { get; set; }
+
+    Pet myPet = new Pet();
+
+    private string species;
+    private string name;
+    private int age;
+
+    public async Task AddFamilyPet()
+    {
+        await PetService.CreatePet(myPet);
+        NavigationManager.NavigateTo($"family/{familyId}/edit");
+    }
+    
+}

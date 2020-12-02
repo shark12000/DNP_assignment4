@@ -1,0 +1,31 @@
+﻿@page "/family/{familyId}/children/{childId}/delete"
+@using dnp_assignment_4.Data
+@inject NavigationManager NavigationManager
+@inject IFamilyService FamilyServiceImpl
+@inject IChildService ChildService
+<h3>AdultDelete</h3>
+
+Are you sure you want to delete the adult with id @childId from family @familyId?
+
+<button @onclick='DeleteChild'>Yes</button>
+<button @onclick='Cancel'>No</button>
+
+@code {
+    [Parameter]
+    public string familyId { get; set; }
+
+    [Parameter]
+    public string childId { get; set; }
+
+    public async Task DeleteChild()
+    {
+        await ChildService.RemoveChild(Int32.Parse(childId));
+        NavigationManager.NavigateTo($"family/{familyId}/edit");
+    }
+
+    public async Task Cancel()
+    {
+        NavigationManager.NavigateTo($"family/{familyId}/edit");
+    }
+    
+}

@@ -1,0 +1,29 @@
+@page "/family/{familyId}/pet/{petId}/delete"
+@using dnp_assignment_4.Data
+@inject NavigationManager NavigationManager
+@inject IFamilyService FamilyServiceImpl
+@inject IPetService PetService
+
+<h3>Family Pet Delete</h3>
+
+Are you sure you want to delete the pet with id @petId from family @familyId?
+<button @onclick='DeletePet'>Yes</button>
+<button @onclick='Cancel'>No</button>
+
+@code {
+    [Parameter]
+    public string familyId { get; set; }
+    [Parameter]
+    public string petId { get; set; }
+    
+    public async Task DeletePet()
+    {
+        await PetService.RemovePet(Int32.Parse(petId));
+        NavigationManager.NavigateTo($"family/{familyId}/edit");
+    }
+
+    public async Task Cancel()
+    {
+        NavigationManager.NavigateTo($"family/{familyId}/edit");
+    }
+}

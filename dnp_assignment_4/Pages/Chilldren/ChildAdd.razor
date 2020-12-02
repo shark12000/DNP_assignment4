@@ -1,0 +1,60 @@
+﻿@page "/family/{familyId}/children/add"
+@using dnp_assignment_4.Data
+@using dnp_assignment_4.Models
+@inject NavigationManager NavigationManager
+@inject IFamilyService FamilyServiceImpl
+@inject IChildService ChildService
+@inject AuthenticationStateProvider AuthenticationStateProvider
+<h3>ChildAdd</h3>
+
+<EditForm Model="myChild">
+    
+    First name <InputText @bind-Value="myChild.FirstName"/>
+    
+    <br/><br/>
+    Last name <InputText @bind-Value="myChild.LastName"/>
+    
+    <br/><br/>
+    Hair color <InputText @bind-Value="myChild.HairColor"/>
+    
+    <br/><br/>
+    Eye color<InputText @bind-Value="myChild.EyeColor"/>
+    
+    <br/><br/>
+    Gender
+    <InputSelect @bind-Value="myChild.Sex">
+        <option value="male">male</option>
+        <option value="female">female</option>
+    </InputSelect>
+    
+    <br/><br/>
+    Age <InputNumber @bind-Value="myChild.Age"/>
+    
+    <br/><br/>
+    Height <InputNumber @bind-Value="myChild.Height"/>
+    
+    <br/><br/>
+    Weight <InputNumber @bind-Value="myChild.Weight"/>
+    
+   <button @onclick='AddChild'>Add</button>
+
+</EditForm>
+
+@code {
+    [Parameter]
+    public string familyId { get; set; }
+    
+    Child myChild = new Child();
+
+    protected override async Task OnInitializedAsync()
+    {
+        myChild.FamilyId = Int32.Parse(familyId);
+    }
+
+    public async Task AddChild()
+    {
+        await ChildService.CreateChild(myChild);
+        Console.WriteLine(myChild.ChildId + " " + myChild.FamilyId + " " + myChild.Age + " " + myChild.Height + " " + myChild.Sex + " " + myChild.Weight + " " + myChild.EyeColor + " " + myChild.FirstName + " " + myChild.HairColor + " " + myChild.LastName);
+        NavigationManager.NavigateTo($"family/{familyId}/edit");
+    }
+}

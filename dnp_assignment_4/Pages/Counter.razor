@@ -1,0 +1,47 @@
+﻿@page "/counter"
+@using dnp_assignment_4.Data
+@using System.Collections
+@using dnp_assignment_4.Models
+@inject IUserService UserService
+
+<h1>Counter</h1>
+
+<EditForm Model="@users">
+First name <InputText  @bind-Value="firstName"/>
+<br/><br/>
+Last name <InputText  @bind-Value="secondName"/>
+<br/><br/>
+<button @onclick="addUser">Add</button>
+
+</EditForm>
+
+<ol>
+    @foreach (User o in users)
+    {
+        <li>
+            @o.FirstName @o.SecondName
+        </li>
+    }
+</ol>
+
+@code {
+    private IList<User> users = new List<User>();
+    private string firstName;
+    private string secondName;
+    
+    protected override async Task OnInitializedAsync()
+    {
+      
+    }
+
+    public async Task addUser()
+    {
+        User user = new User()
+        {
+            FirstName = firstName,
+            SecondName = secondName
+        };
+        await UserService.RegisterUser(user);
+        users.Add(user);
+    }
+}

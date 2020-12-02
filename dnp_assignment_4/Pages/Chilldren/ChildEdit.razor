@@ -1,0 +1,153 @@
+﻿@page "/family/{familyId}/children/{childId}/edit"
+@using dnp_assignment_4.Data
+@using dnp_assignment_4.Models
+@inject NavigationManager NavigationManager
+@inject IFamilyService FamilyServiceImpl
+@inject IChildService ChildService
+<h3>ChildrenEdit</h3>
+
+<EditForm Model="myChild">
+First name <InputText  @bind-Value="myChild.FirstName"/>
+
+<br/><br/>
+Last name <InputText  @bind-Value="myChild.LastName"/>
+
+<br/><br/>
+Hair color <InputText  @bind-Value="myChild.HairColor"/>
+
+<br/><br/>
+Eye color<InputText  @bind-Value="myChild.EyeColor"/>
+
+<br/><br/>
+Gender <InputSelect @bind-Value="myChild.Sex">
+    <option value="male">male</option>
+    <option value="female">female</option>
+</InputSelect>
+
+<br/><br/>
+Age <InputNumber @bind-Value="myChild.Age"/>
+
+<br/><br/>
+Height <InputNumber @bind-Value="myChild.Height"/>
+
+<br/><br/>
+Wight <InputNumber @bind-Value="myChild.Weight"/>
+
+<br/><br/>
+<h3>Interests:</h3>
+<InputSelect @bind-Value="myChild.Hobbies">
+    @foreach (Hobby item in _hobbies)
+    {
+        <option value="@item">@item.HobbyType</option>
+    }
+</InputSelect>
+
+<br/><br/>
+Hobby: <InputText @bind-Value="myHobby.HobbyType"/>
+
+<br/><br/>
+<button @onclick="AddHobby">AddInterest</button>
+
+<br/><br/>
+<ol>
+    @foreach (Hobby interest in myHobbies)
+    {
+        <li>
+            @interest.ToString()
+            <a style=" cursor:pointer; color:blue; text-decoration:underline;" @onclick="@(e => DeleteInterest(interest))" >Delete</a>
+        </li>
+    }
+</ol>
+
+<br/><br/>
+Add animal
+Job <InputSelect @bind-Value="myPet.PetSpecie">
+    @foreach (string item in myPet.SpeciesOfPet)
+    {
+        <option value="@item">@item</option>
+    }
+</InputSelect>
+
+<br/><br/>
+Name: <InputText @bind-Value="myPet.Name"/>
+
+<br/><br/>
+Age: <InputNumber @bind-Value="myPet.Age"/>
+
+<br/><br/>
+<ol>
+    @foreach (Pet pet in myPets)
+    {
+        <li>
+            @pet.Name
+            <a style=" cursor:pointer; color:blue; text-decoration:underline;" @onclick="@(e => DeletePet(pet))" >Delete</a>
+        </li>
+    }
+</ol>
+
+<br/><br/>
+<button @onclick="AddPet">AddPet</button>
+
+<br/><br/>
+<button @onclick="Save">Save</button>
+
+</EditForm>
+
+
+@code {
+    [Parameter]
+    public string familyId { get; set; }
+
+    [Parameter]
+    public string childId { get; set; }
+
+    Child myChild = new Child();
+    Hobby myHobby = new Hobby();
+    Pet myPet = new Pet();
+    
+    IList<Hobby> _hobbies = new List<Hobby>();
+    IList<Hobby> myHobbies = new List<Hobby>();
+    IList<Pet> myPets = new List<Pet>(); 
+
+    protected override async Task OnInitializedAsync()
+    {
+        _hobbies = await ChildService.GetAllHobbies();
+        myChild = await ChildService.GetChild(Int32.Parse(childId));
+        myPets = await ChildService.GetPets(Int32.Parse(childId));
+        myHobbies = await ChildService.GetHobbies(Int32.Parse(childId));
+        myPet.ChildId = Int32.Parse(childId);
+        myPet.FamilyId = Int32.Parse(familyId);
+        myHobby.ChildId = Int32.Parse(childId);
+    }
+
+    public async Task Save()
+    {
+        await ChildService.Update(myChild);
+        NavigationManager.NavigateTo($"/family/{familyId}/edit");
+    }
+    
+    public async Task AddChildInterest(Hobby hobby)
+    {
+        await ChildService.CreateHobby(hobby);
+    }
+
+    public async Task DeleteInterest(Hobby hobby)
+    {
+        await ChildService.RemoveHobby(hobby.HobbyId, myChild.ChildId);
+    }
+
+    public async Task AddHobby()
+    {
+        await AddChildInterest(myHobby);
+    }
+    
+    public async Task AddPet()
+    {
+        await ChildService.CreatePet(myPet);
+    }
+
+    public async Task DeletePet(Pet pet)
+    {
+        await ChildService.RemovePet(pet.PetId);
+    }
+}

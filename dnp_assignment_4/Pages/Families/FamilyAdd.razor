@@ -1,0 +1,43 @@
+﻿@page "/{userId}/FamilyView/add"
+@using dnp_assignment_4.Data
+@using dnp_assignment_4.Models
+@inject NavigationManager NavigationManager
+@inject IFamilyService FamilyServiceImpl
+@inject IUserService UserService
+@inject AuthenticationStateProvider AuthenticationStateProvider
+<h3>FamilyAdd</h3>
+
+<EditForm Model="_family">
+    Street name: <InputText @bind-Value="_family.StreetName"/>
+    
+    <br/><br/>
+    House number: <InputNumber @bind-Value="_family.HouseNumber"/>
+    
+    <br/><br/>
+    <button @onclick='AddFamily'>Add</button>
+</EditForm>
+
+
+
+@code {
+    [Parameter]
+    public string userId { get; set; }
+
+    Family _family = new Family();
+
+    private int id;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        userId = user.FindFirst(claim => claim.Type.Equals("Id")).Value;
+        id = Int32.Parse(userId);
+        _family.UserId = id;
+    }
+    
+    public async Task AddFamily()
+    {
+        await FamilyServiceImpl.CreateFamily(_family);
+    }
+}

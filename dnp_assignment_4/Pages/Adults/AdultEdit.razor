@@ -1,0 +1,79 @@
+﻿@page "/family/{familyId}/adult/{adultId}/edit"
+@using dnp_assignment_4.Data
+@using dnp_assignment_4.Models
+@inject NavigationManager NavigationManager
+@inject IFamilyService FamilyServiceImpl
+@inject IAdultService AdultService;
+
+<EditForm Model="myAdult">
+
+    <InputSelect @bind-Value="myAdult.JobTitle">
+        @foreach (string item in myAdult.JobTitles)
+        {
+            <option value="@item">@item</option>
+        }
+    </InputSelect>
+    
+    <br/><br/>
+
+    First Name: <InputText @bind-Value="myAdult.FirstName" />
+    
+    <br/><br/>
+
+    Last Name: <InputText @bind-Value="myAdult.LastName" />
+        
+    <br/><br/>
+    
+    Hair color <InputText  @bind-Value="myAdult.HairColor"/>
+    
+    <br/><br/>
+    
+    Eye color <InputText  @bind-Value="myAdult.EyeColor"/>
+    
+    <br/><br/>
+    
+    Gender <InputSelect @bind-Value="myAdult.Sex">
+        <option value="male">male</option>
+        <option value="female">female</option>
+    </InputSelect>
+    
+    <br/><br/>
+    
+    Age <InputNumber @bind-Value="myAdult.Age"/>
+    
+    <br/><br/>
+    
+    Height <InputNumber @bind-Value="myAdult.Height"/>
+    
+    <br/><br/>
+    
+    Wight <InputNumber @bind-Value="myAdult.Weight"/>
+    
+    <br/><br/>
+
+    <button @onclick='Save'>Update</button>
+
+</EditForm>
+
+
+@code {
+
+    [Parameter]
+    public string familyId { get; set; }
+
+    [Parameter]
+    public string adultId { get; set; }
+
+    private Adult myAdult = new Adult();
+
+    protected override async Task OnInitializedAsync()
+    {
+        myAdult = await AdultService.GetAdult(Int32.Parse(adultId));
+    }
+
+    public async Task Save()
+    {
+        await AdultService.Update(myAdult);
+        NavigationManager.NavigateTo($"/family/{familyId}/edit");
+    }
+}

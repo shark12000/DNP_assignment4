@@ -1,0 +1,40 @@
+@page "/families"
+@using dnp_assignment_4.Data
+@using dnp_assignment_4.Models
+@using System.Collections
+
+@inject IJSRuntime jsRuntime
+@inject IFamilyService FamilyServiceImpl
+@inject NavigationManager NavigationManager
+@inject IUserService UserService
+
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+</style>
+
+<div style=" display: grid; grid-template-columns: 1fr 1fr; box-sizing: border-box; padding: 10%; grid-gap: 10em">
+    @foreach (Family family in families)
+    {
+        if (!family.Equals(null))
+        {
+            <div style="justify-content: space-between; box-sizing: border-box; display: flex; flex-direction: column; border-radius: 10px; padding: 3% 6%; box-shadow: 0 4px 6px rgba(32,33,36,.08);">
+                <div style="margin-bottom: 30px;">
+                    <p>@family.StreetName @family.HouseNumber</p>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+
+@code {
+    private IList<Family> families = new List<Family>();
+    
+    protected override async Task OnInitializedAsync()
+    {
+        families = await FamilyServiceImpl.GetAllFamilies();
+    }
+}

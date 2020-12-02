@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+    
+    
+
+    <ItemGroup>
+      <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+        
+    </ItemGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Blazor.HttpClient" Version="3.0.0-preview8.19405.7" PrivateAssets="all" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Pages\Chilldren\ChildAdd.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Chilldren\ChildEdit.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Chilldren\ChildRemove.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Adults\AdultAdd.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Adults\AdultDelete.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Adults\AdultEdit.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Pets\FamilyPetAdd.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Pets\FamilyPetDelete.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Pets\FamilyPetEdit.razor" />
+    </ItemGroup>
+
+</Project>

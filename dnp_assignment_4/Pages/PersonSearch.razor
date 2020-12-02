@@ -1,0 +1,53 @@
+@page "/Person/Search"
+@using DNP4.Data
+@using dnp_assignment_4.Data
+@using dnp_assignment_4.Models
+@inject IFilterService FilterService;
+@inject IFamilyService FamilyService;
+<h3>Person Search</h3>
+Name: <input @bind='name' type="text">
+<button @onclick='Search'>Search</button>
+<button @onclick='Show'>Reset</button>
+<P style="color: red">@error</P>
+@foreach (Person pers in results)
+{
+    <div style="border:1px solid gray; margin-bottom: 5px;">
+        Name: @pers.FirstName @pers.LastName
+        Age: @pers.Age
+        Sex: @pers.Sex
+        Height: @pers.Height
+        Weight: @pers.Weight
+        Hair: @pers.HairColor
+    </div>
+}
+
+@code {
+    private String name;
+    private string error = "";
+    
+    private IList<Person> results = new List<Person>();
+
+    private async Task Search()
+    {
+        if (name == null || name.Equals(""))
+        {
+            error = "The field can not be empty";
+        }
+        else
+        {
+            results = await FilterService.FindPersonByName(name);
+            name = "";
+        }
+    }
+    
+    private async Task Show()
+    {
+        results = await FilterService.GetAllPeople();
+    }
+    
+    
+    protected override async Task OnInitializedAsync()
+    {
+        results = await FilterService.GetAllPeople();
+    }
+}
