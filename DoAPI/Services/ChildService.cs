@@ -103,14 +103,16 @@ namespace DoAPI.Services
         public async Task DeleteAsync(int id)
         {
             Child child = _myDbContext.Children.FirstOrDefault(f => f.ChildId == id);
-            if (child == null)
+            IList<Hobby> hobbiesToRemove = new List<Hobby>(_myDbContext.Hobby.Where(f => f.ChildId == id));
+            IList<Pet> petsToRemove = new List<Pet>(_myDbContext.Pets.Where(f => f.ChildId == id));
+            if (child == null || hobbiesToRemove.Equals(null) || petsToRemove.Equals(null))
             {
                 Console.WriteLine("null");   
             }
             else
             {
-                _myDbContext.Hobby.RemoveRange(child.Hobbies);
-                _myDbContext.Pets.RemoveRange(child.Pets);
+                _myDbContext.Hobby.RemoveRange(hobbiesToRemove);
+                _myDbContext.Pets.RemoveRange(petsToRemove);
                 _myDbContext.Children.Remove(child);
             }
 
@@ -203,14 +205,14 @@ namespace DoAPI.Services
         
         public async Task DeletePets(int id)
         {
-            Child child = _myDbContext.Children.FirstOrDefault(f => f.ChildId == id);
-            if (child == null)
+            IList<Pet> petsToRemove = new List<Pet>(_myDbContext.Pets.Where(f => f.ChildId == id));
+            if (petsToRemove.Equals(null))
             {
                 Console.WriteLine("null");   
             }
             else
             {
-                _myDbContext.Pets.RemoveRange(child.Pets);
+                _myDbContext.Pets.RemoveRange(petsToRemove);
             }
 
             await _myDbContext.SaveChangesAsync();
